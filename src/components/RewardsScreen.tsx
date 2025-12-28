@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { Home, Star, Trophy, Award, Sparkles, Crown, Heart, Gift } from 'lucide-react';
 import { Button } from './ui/button';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
+import { useEffect } from 'react';
 import type { Screen, GameState } from '../App';
 
 interface RewardsScreenProps {
@@ -9,9 +11,15 @@ interface RewardsScreenProps {
 }
 
 export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
+  const { speak } = useTextToSpeech();
   const totalStickers = Math.floor(gameState.points / 100);
   const badges = Math.floor(gameState.points / 500);
   const collectionProgress = Math.min((gameState.points / 2000) * 100, 100);
+
+  useEffect(() => {
+    // Announce rewards summary when entering screen
+    speak(`Mis Premios. Tienes ${gameState.points} puntos, ${gameState.stars} estrellas, ${gameState.trophies} trofeos, y ${totalStickers} calcomanías.`);
+  }, []);
 
   const rewardTypes = [
     { icon: Star, color: 'from-yellow-400 to-orange-400', label: 'Estrellas', count: gameState.stars },
@@ -28,7 +36,10 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
       <div className="sticky top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
-            onClick={() => navigateTo('home')}
+            onClick={() => {
+              navigateTo('home');
+              speak('Volver a inicio');
+            }}
             className="bg-gray-500 hover:bg-gray-600 text-white w-16 h-16 rounded-2xl shadow-lg"
           >
             <Home className="w-8 h-8" />

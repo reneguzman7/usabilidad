@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Home, Type, Contrast, Palette, Check, Target, BookOpen } from 'lucide-react';
 import { Button } from './ui/button';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
 import type { Screen } from '../App';
 
 interface SettingsScreenProps {
@@ -15,6 +16,7 @@ interface SettingsScreenProps {
 }
 
 export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsScreenProps) {
+  const { speak } = useTextToSpeech();
   const fontSizes = [
     { value: 'normal', label: 'Normal', size: 'text-2xl' },
     { value: 'large', label: 'Grande', size: 'text-3xl' },
@@ -34,7 +36,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
       <div className="sticky top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
-            onClick={() => navigateTo('home')}
+            onClick={() => {
+              navigateTo('home');
+              speak('Volver a inicio');
+            }}
             className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white w-16 h-16 rounded-2xl shadow-lg border-4 border-white"
           >
             <Home className="w-8 h-8" />
@@ -73,7 +78,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSettings({ ...settings, difficulty: 'easy' })}
+                onClick={() => {
+                  setSettings({ ...settings, difficulty: 'easy' });
+                  speak('Dificultad: Fácil');
+                }}
                 className={`p-8 rounded-2xl border-4 transition-all ${
                   settings.difficulty === 'easy'
                     ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-xl'
@@ -97,7 +105,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSettings({ ...settings, difficulty: 'normal' })}
+                onClick={() => {
+                  setSettings({ ...settings, difficulty: 'normal' });
+                  speak('Dificultad: Normal');
+                }}
                 className={`p-8 rounded-2xl border-4 transition-all ${
                   settings.difficulty === 'normal'
                     ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-xl'
@@ -144,7 +155,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   key={size.value}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setSettings({ ...settings, fontSize: size.value })}
+                  onClick={() => {
+                    setSettings({ ...settings, fontSize: size.value });
+                    speak(`Tamaño de texto: ${size.label}`);
+                  }}
                   className={`p-8 rounded-2xl border-4 transition-all ${
                     settings.fontSize === size.value
                       ? 'bg-gradient-to-br from-purple-400 to-pink-400 border-purple-600 text-white shadow-xl'
@@ -189,7 +203,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSettings({ ...settings, highContrast: false })}
+                onClick={() => {
+                  setSettings({ ...settings, highContrast: false });
+                  speak('Colores Normales');
+                }}
                 className={`p-8 rounded-2xl border-4 transition-all ${
                   !settings.highContrast
                     ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-xl'
@@ -212,7 +229,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSettings({ ...settings, highContrast: true })}
+                onClick={() => {
+                  setSettings({ ...settings, highContrast: true });
+                  speak('Alto Contraste activado');
+                }}
                 className={`p-8 rounded-2xl border-4 transition-all ${
                   settings.highContrast
                     ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-xl contrast-125'
@@ -258,7 +278,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   key={bg.value}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setSettings({ ...settings, backgroundColor: bg.value })}
+                  onClick={() => {
+                    setSettings({ ...settings, backgroundColor: bg.value });
+                    speak(`Color de fondo: ${bg.label}`);
+                  }}
                   className={`p-8 rounded-2xl border-4 transition-all ${
                     settings.backgroundColor === bg.value
                       ? 'border-pink-600 shadow-xl ring-4 ring-pink-300'
@@ -392,7 +415,10 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
             className="flex justify-center gap-6 pb-8"
           >
             <Button
-              onClick={() => navigateTo('home')}
+              onClick={() => {
+                navigateTo('home');
+                speak('¡Listo! Configuración guardada');
+              }}
               className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-16 py-8 text-3xl rounded-3xl shadow-xl border-4 border-white"
             >
               <Check className="w-10 h-10 mr-4" />

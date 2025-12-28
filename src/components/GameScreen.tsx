@@ -29,6 +29,7 @@ const sentences: Sentence[] = [
 
 export function GameScreen({ navigateTo, gameState, updateGameState }: GameScreenProps) {
   const currentSentence = sentences[(gameState.currentLevel - 1) % sentences.length];
+  const { speak } = useTextToSpeech();
   
   const [shuffledWords, setShuffledWords] = useState<string[]>([]);
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
@@ -49,6 +50,9 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
     setMascotMessage('¡Ordena las palabras!');
     setFocusedIndex(0);
     setFocusArea('available');
+    
+    // Announce level and theme
+    speak(`Nivel ${gameState.currentLevel}. Tema: ${currentSentence.theme}. ¡Ordena las palabras!`);
   }, [gameState.currentLevel]);
 
   // Manejo de teclado
@@ -164,12 +168,14 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
     setSelectedWords([...selectedWords, word]);
     setShuffledWords(shuffledWords.filter((_, i) => i !== index));
     setFeedback(null);
+    speak(word);
   };
 
   const handleRemoveWord = (index: number) => {
     const word = selectedWords[index];
     setShuffledWords([...shuffledWords, word]);
     setSelectedWords(selectedWords.filter((_, i) => i !== index));
+    speak(`Quitaste: ${word}`);
   };
 
   const handleVerify = () => {
@@ -191,11 +197,13 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
         trophies: newTrophies,
       });
 
+      speak('¡Excelente! ¡Lo hiciste perfecto! Ganaste 100 puntos');
       setTimeout(() => setShowCelebration(false), 2000);
     } else {
       setFeedback('incorrect');
       setMascotMessage('¡Casi! Inténtalo de nuevo 💪');
       setShowFeedbackModal(true);
+      speak('¡Casi! Inténtalo de nuevo');
     }
   };
 
@@ -214,6 +222,7 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
     setFeedback(null);
     setMascotMessage('¡Vamos otra vez!');
     setShowResetConfirm(false);
+    speak('¡Vamos otra vez!');
   };
 
   const handleNext = () => {
@@ -227,8 +236,11 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
       const wordIndex = shuffledWords.indexOf(nextWord);
       
       if (wordIndex !== -1) {
-        handleWordClick(nextWord, wordIndex);
+        setSelectedWords([...selectedWords, nextWord]);
+        setShuffledWords(shuffledWords.filter((_, i) => i !== wordIndex));
+        setFeedback(null);
         setMascotMessage('¡Ahí está! 💡');
+        speak(`Pista: ${nextWord}`);
       }
     }
   };

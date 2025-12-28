@@ -62,8 +62,15 @@ const tutorialSteps: TutorialStep[] = [
 ];
 
 export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
+  const { speak } = useTextToSpeech();
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  // Announce step when it changes
+  useEffect(() => {
+    const step = tutorialSteps[currentStep];
+    speak(`Paso ${currentStep + 1}. ${step.title}. ${step.description}`);
+  }, [currentStep]);
 
   // Manejo de teclado
   useEffect(() => {
@@ -138,7 +145,10 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
       <div className="absolute top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
-            onClick={() => navigateTo('home')}
+            onClick={() => {
+              navigateTo('home');
+              speak('Volver a inicio');
+            }}
             className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-6 rounded-2xl shadow-lg"
           >
             <Home className="w-8 h-8" />
@@ -321,7 +331,10 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
             </Button>
           ) : (
             <Button
-              onClick={handleFinish}
+              onClick={() => {
+                handleFinish();
+                speak('¡Empezar a Jugar!');
+              }}
               className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white w-80 h-20 text-3xl rounded-2xl shadow-xl"
             >
               ¡Empezar a Jugar!
