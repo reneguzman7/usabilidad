@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Home, Type, Contrast, Palette, Check, Target, BookOpen } from 'lucide-react';
+import { Home, Type, Contrast, Palette, Check, Target } from 'lucide-react';
 import { Button } from './ui/button';
 import { useTextToSpeech } from '../hooks/useTextToSpeech';
 import { useState, useEffect } from 'react';
@@ -91,7 +91,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
     <div className="w-full h-full bg-gradient-to-br from-purple-200 via-blue-200 to-cyan-200 relative overflow-auto">
       {/* Header */}
       <div className="sticky top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6">
-        <div className="flex items-center justify-between max-w-screen-2xl mx-auto">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Button
             onClick={() => {
               navigateTo('home');
@@ -110,337 +110,310 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
         </div>
       </div>
 
-      {/* Main content - Two column layout */}
-      <div className="px-8 py-8">
-        <div className="max-w-screen-2xl mx-auto">
+      {/* Main content */}
+      <div className="px-6 py-8">
+        <div className="max-w-7xl mx-auto">
           {/* Keyboard hint */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white/90 px-6 py-4 rounded-2xl shadow-lg border-2 border-indigo-300 text-center mb-6"
+            className="bg-white/90 px-6 py-3 rounded-2xl shadow-lg border-2 border-indigo-300 text-center mb-6"
           >
-            <p className="text-lg text-gray-700">
+            <p className="text-base text-gray-700">
               💡 <strong>Tip:</strong> Usa las flechas ↑↓ para navegar entre opciones y ←→ para cambiar valores
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left column - Settings */}
-            <div className="space-y-8">
-              {/* Difficulty setting */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className={`bg-white rounded-3xl p-8 shadow-2xl border-4 transition-all ${
-                  focusedSection === 'difficulty' ? 'border-green-600 ring-4 ring-green-300' : 'border-green-400'
-                }`}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-gradient-to-br from-green-400 to-emerald-400 p-3 rounded-2xl">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl text-green-700">Dificultad</h2>
+          {/* Row 1: Difficulty + Font Size */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* Difficulty setting */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className={`bg-white rounded-3xl p-6 shadow-2xl border-4 transition-all ${
+                focusedSection === 'difficulty' ? 'border-green-600 ring-4 ring-green-300' : 'border-green-400'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-gradient-to-br from-green-400 to-emerald-400 p-2 rounded-xl">
+                  <Target className="w-6 h-6 text-white" />
                 </div>
+                <h2 className="text-2xl text-green-700">Dificultad</h2>
+              </div>
 
-                <p className="text-lg text-gray-600 mb-6">
-                  Elige el nivel de dificultad que prefieras
-                </p>
+              <p className="text-sm text-gray-600 mb-4">
+                Elige el nivel de dificultad que prefieras
+              </p>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setSettings({ ...settings, difficulty: 'easy' });
-                      speak('Dificultad: Fácil');
-                    }}
-                    className={`p-6 rounded-2xl border-4 transition-all ${
-                      settings.difficulty === 'easy'
-                        ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-xl'
-                        : 'bg-gray-100 border-gray-300 hover:border-green-300'
-                    }`}
-                  >
-                    <div className="text-4xl mb-3">😊</div>
-                    <div className="text-xl mb-1">Fácil</div>
-                    <div className="text-sm opacity-80">(Frases cortas)</div>
-                    {settings.difficulty === 'easy' && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="mt-3"
-                      >
-                        <Check className="w-6 h-6 mx-auto" />
-                      </motion.div>
-                    )}
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setSettings({ ...settings, difficulty: 'normal' });
-                      speak('Dificultad: Normal');
-                    }}
-                    className={`p-6 rounded-2xl border-4 transition-all ${
-                      settings.difficulty === 'normal'
-                        ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-xl'
-                        : 'bg-gray-100 border-gray-300 hover:border-green-300'
-                    }`}
-                  >
-                    <div className="text-4xl mb-3">🎯</div>
-                    <div className="text-xl mb-1">Normal</div>
-                    <div className="text-sm opacity-80">(Frases largas)</div>
-                    {settings.difficulty === 'normal' && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="mt-3"
-                      >
-                        <Check className="w-6 h-6 mx-auto" />
-                      </motion.div>
-                    )}
-                  </motion.button>
-                </div>
-              </motion.div>
-
-              {/* Font size setting */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className={`bg-white rounded-3xl p-8 shadow-2xl border-4 transition-all ${
-                  focusedSection === 'fontSize' ? 'border-purple-600 ring-4 ring-purple-300' : 'border-purple-400'
-                }`}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-gradient-to-br from-purple-400 to-pink-400 p-3 rounded-2xl">
-                    <Type className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl text-purple-700">Tamaño del Texto</h2>
-                </div>
-
-                <p className="text-lg text-gray-600 mb-6">
-                  Elige qué tan grande quieres ver las letras
-                </p>
-
-                <div className="grid grid-cols-3 gap-4">
-                  {fontSizes.map((size) => (
-                    <motion.button
-                      key={size.value}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        setSettings({ ...settings, fontSize: size.value });
-                        speak(`Tamaño de texto: ${size.label}`);
-                      }}
-                      className={`p-6 rounded-2xl border-4 transition-all ${
-                        settings.fontSize === size.value
-                          ? 'bg-gradient-to-br from-purple-400 to-pink-400 border-purple-600 text-white shadow-xl'
-                          : 'bg-gray-100 border-gray-300 hover:border-purple-300'
-                      }`}
-                    >
-                      <div className={`${size.size} mb-3`}>Aa</div>
-                      <div className="text-lg">{size.label}</div>
-                      {settings.fontSize === size.value && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="mt-3"
-                        >
-                          <Check className="w-6 h-6 mx-auto" />
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* High contrast setting */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className={`bg-white rounded-3xl p-8 shadow-2xl border-4 transition-all ${
-                  focusedSection === 'contrast' ? 'border-blue-600 ring-4 ring-blue-300' : 'border-blue-400'
-                }`}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-gradient-to-br from-blue-400 to-cyan-400 p-3 rounded-2xl">
-                    <Contrast className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl text-blue-700">Alto Contraste</h2>
-                </div>
-
-                <p className="text-lg text-gray-600 mb-6">
-                  Hace que los colores sean más fáciles de ver
-                </p>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setSettings({ ...settings, highContrast: false });
-                      speak('Colores Normales');
-                    }}
-                    className={`p-6 rounded-2xl border-4 transition-all ${
-                      !settings.highContrast
-                        ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-xl'
-                        : 'bg-gray-100 border-gray-300 hover:border-blue-300'
-                    }`}
-                  >
-                    <div className="text-3xl mb-2">🌈</div>
-                    <div className="text-xl">Colores Normales</div>
-                    {!settings.highContrast && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="mt-3"
-                      >
-                        <Check className="w-6 h-6 mx-auto" />
-                      </motion.div>
-                    )}
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setSettings({ ...settings, highContrast: true });
-                      speak('Alto Contraste activado');
-                    }}
-                    className={`p-6 rounded-2xl border-4 transition-all ${
-                      settings.highContrast
-                        ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-xl contrast-125'
-                        : 'bg-gray-100 border-gray-300 hover:border-blue-300'
-                    }`}
-                  >
-                    <div className="text-3xl mb-2">⚫⚪</div>
-                    <div className="text-xl">Alto Contraste</div>
-                    {settings.highContrast && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="mt-3"
-                      >
-                        <Check className="w-6 h-6 mx-auto" />
-                      </motion.div>
-                    )}
-                  </motion.button>
-                </div>
-              </motion.div>
-
-              {/* Background color setting */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className={`bg-white rounded-3xl p-8 shadow-2xl border-4 transition-all ${
-                  focusedSection === 'background' ? 'border-pink-600 ring-4 ring-pink-300' : 'border-pink-400'
-                }`}
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-gradient-to-br from-pink-400 to-rose-400 p-3 rounded-2xl">
-                    <Palette className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl text-pink-700">Color de Fondo</h2>
-                </div>
-
-                <p className="text-lg text-gray-600 mb-6">
-                  Elige el color que más te guste para jugar
-                </p>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {backgroundColors.map((bg) => (
-                    <motion.button
-                      key={bg.value}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        setSettings({ ...settings, backgroundColor: bg.value });
-                        speak(`Color de fondo: ${bg.label}`);
-                      }}
-                      className={`p-6 rounded-2xl border-4 transition-all ${
-                        settings.backgroundColor === bg.value
-                          ? 'border-pink-600 shadow-xl ring-4 ring-pink-300'
-                          : 'border-gray-300 hover:border-pink-300'
-                      }`}
-                    >
-                      <div className={`w-full h-20 ${bg.color} rounded-xl mb-3 shadow-inner`}></div>
-                      <div className="text-lg mb-1">{bg.label}</div>
-                      {settings.backgroundColor === bg.value && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                        >
-                          <Check className="w-6 h-6 mx-auto text-pink-600" />
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Right column - Preview (sticky) */}
-            <div className="space-y-8">
-              <div className="sticky top-32">
-                {/* Preview section */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-green-300 to-emerald-400 rounded-3xl p-8 shadow-2xl border-4 border-white"
+              <div className="grid grid-cols-2 gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setSettings({ ...settings, difficulty: 'easy' });
+                    speak('Dificultad: Fácil');
+                  }}
+                  className={`p-4 rounded-xl border-3 transition-all ${
+                    settings.difficulty === 'easy'
+                      ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-lg'
+                      : 'bg-gray-100 border-gray-300 hover:border-green-300'
+                  }`}
                 >
-                  <h2 className="text-4xl text-white text-center mb-6">Vista Previa</h2>
-                  <div
-                    className={`bg-white rounded-2xl p-8 ${settings.highContrast ? 'contrast-125' : ''}`}
-                    style={{
-                      backgroundColor: settings.backgroundColor === 'blue' ? '#E3F2FD' : 
-                                      settings.backgroundColor === 'yellow' ? '#FFF9C4' : 
-                                      settings.backgroundColor === 'pink' ? '#FCE4EC' : 'white'
-                    }}
-                  >
-                    <p
-                      className={`text-gray-800 mb-4 ${
-                        settings.fontSize === 'large' ? 'text-xl' : settings.fontSize === 'xlarge' ? 'text-2xl' : ''
-                      }`}
-                    >
-                      Así se verá el texto en el juego. ¡Prueba diferentes opciones!
-                    </p>
-                    <div className="flex gap-4 flex-wrap">
-                      <div className="bg-blue-400 text-white px-6 py-3 rounded-xl">Palabra</div>
-                      <div className="bg-green-400 text-white px-6 py-3 rounded-xl">Ejemplo</div>
-                      <div className="bg-purple-400 text-white px-6 py-3 rounded-xl">Texto</div>
-                    </div>
-                  </div>
-                </motion.div>
+                  <div className="text-3xl mb-2">😊</div>
+                  <div className="text-lg mb-1">Fácil</div>
+                  <div className="text-xs opacity-80">(Frases cortas)</div>
+                  {settings.difficulty === 'easy' && (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
+                      <Check className="w-5 h-5 mx-auto" />
+                    </motion.div>
+                  )}
+                </motion.button>
 
-                {/* Informational message */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-2xl p-6 text-center shadow-xl mt-6"
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setSettings({ ...settings, difficulty: 'normal' });
+                    speak('Dificultad: Normal');
+                  }}
+                  className={`p-4 rounded-xl border-3 transition-all ${
+                    settings.difficulty === 'normal'
+                      ? 'bg-gradient-to-br from-green-400 to-emerald-400 border-green-600 text-white shadow-lg'
+                      : 'bg-gray-100 border-gray-300 hover:border-green-300'
+                  }`}
                 >
-                  <p className="text-xl">
-                    ✨ Todos los cambios se aplican inmediatamente ✨
-                  </p>
-                  <p className="text-lg mt-2">
-                    Puedes volver aquí en cualquier momento para cambiarlos
-                  </p>
-                </motion.div>
+                  <div className="text-3xl mb-2">🎯</div>
+                  <div className="text-lg mb-1">Normal</div>
+                  <div className="text-xs opacity-80">(Frases largas)</div>
+                  {settings.difficulty === 'normal' && (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
+                      <Check className="w-5 h-5 mx-auto" />
+                    </motion.div>
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Font size setting */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className={`bg-white rounded-3xl p-6 shadow-2xl border-4 transition-all ${
+                focusedSection === 'fontSize' ? 'border-purple-600 ring-4 ring-purple-300' : 'border-purple-400'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-gradient-to-br from-purple-400 to-pink-400 p-2 rounded-xl">
+                  <Type className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-2xl text-purple-700">Tamaño del Texto</h2>
+              </div>
+
+              <p className="text-sm text-gray-600 mb-4">
+                Elige qué tan grande quieres ver las letras
+              </p>
+
+              <div className="grid grid-cols-3 gap-2">
+                {fontSizes.map((size) => (
+                  <motion.button
+                    key={size.value}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setSettings({ ...settings, fontSize: size.value });
+                      speak(`Tamaño de texto: ${size.label}`);
+                    }}
+                    className={`p-4 rounded-xl border-3 transition-all ${
+                      settings.fontSize === size.value
+                        ? 'bg-gradient-to-br from-purple-400 to-pink-400 border-purple-600 text-white shadow-lg'
+                        : 'bg-gray-100 border-gray-300 hover:border-purple-300'
+                    }`}
+                  >
+                    <div className={`${size.size} mb-2`}>Aa</div>
+                    <div className="text-sm">{size.label}</div>
+                    {settings.fontSize === size.value && (
+                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
+                        <Check className="w-4 h-4 mx-auto" />
+                      </motion.div>
+                    )}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Row 2: High Contrast + Background Color */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* High contrast setting */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className={`bg-white rounded-3xl p-6 shadow-2xl border-4 transition-all ${
+                focusedSection === 'contrast' ? 'border-blue-600 ring-4 ring-blue-300' : 'border-blue-400'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-gradient-to-br from-blue-400 to-cyan-400 p-2 rounded-xl">
+                  <Contrast className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-2xl text-blue-700">Alto Contraste</h2>
+              </div>
+
+              <p className="text-sm text-gray-600 mb-4">
+                Hace que los colores sean más fáciles de ver
+              </p>
+
+              <div className="grid grid-cols-2 gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setSettings({ ...settings, highContrast: false });
+                    speak('Colores Normales');
+                  }}
+                  className={`p-4 rounded-xl border-3 transition-all ${
+                    !settings.highContrast
+                      ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-lg'
+                      : 'bg-gray-100 border-gray-300 hover:border-blue-300'
+                  }`}
+                >
+                  <div className="text-2xl mb-2">🌈</div>
+                  <div className="text-base">Colores Normales</div>
+                  {!settings.highContrast && (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
+                      <Check className="w-5 h-5 mx-auto" />
+                    </motion.div>
+                  )}
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setSettings({ ...settings, highContrast: true });
+                    speak('Alto Contraste activado');
+                  }}
+                  className={`p-4 rounded-xl border-3 transition-all ${
+                    settings.highContrast
+                      ? 'bg-gradient-to-br from-blue-400 to-cyan-400 border-blue-600 text-white shadow-lg contrast-125'
+                      : 'bg-gray-100 border-gray-300 hover:border-blue-300'
+                  }`}
+                >
+                  <div className="text-2xl mb-2">⚫⚪</div>
+                  <div className="text-base">Alto Contraste</div>
+                  {settings.highContrast && (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
+                      <Check className="w-5 h-5 mx-auto" />
+                    </motion.div>
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Background color setting */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className={`bg-white rounded-3xl p-6 shadow-2xl border-4 transition-all ${
+                focusedSection === 'background' ? 'border-pink-600 ring-4 ring-pink-300' : 'border-pink-400'
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-gradient-to-br from-pink-400 to-rose-400 p-2 rounded-xl">
+                  <Palette className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-2xl text-pink-700">Color de Fondo</h2>
+              </div>
+
+              <p className="text-sm text-gray-600 mb-4">
+                Elige el color que más te guste para jugar
+              </p>
+
+              <div className="grid grid-cols-2 gap-3">
+                {backgroundColors.map((bg) => (
+                  <motion.button
+                    key={bg.value}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setSettings({ ...settings, backgroundColor: bg.value });
+                      speak(`Color de fondo: ${bg.label}`);
+                    }}
+                    className={`p-4 rounded-xl border-3 transition-all ${
+                      settings.backgroundColor === bg.value
+                        ? 'border-pink-600 shadow-lg ring-4 ring-pink-300'
+                        : 'border-gray-300 hover:border-pink-300'
+                    }`}
+                  >
+                    <div className={`w-full h-16 ${bg.color} rounded-lg mb-2 shadow-inner`}></div>
+                    <div className="text-sm mb-1">{bg.label}</div>
+                    {settings.backgroundColor === bg.value && (
+                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <Check className="w-4 h-4 mx-auto text-pink-600" />
+                      </motion.div>
+                    )}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Row 3: Preview (full width) */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-gradient-to-br from-green-300 to-emerald-400 rounded-3xl p-8 shadow-2xl border-4 border-white mb-6"
+          >
+            <h2 className="text-3xl text-white text-center mb-6">Vista Previa</h2>
+            <div
+              className={`bg-white rounded-2xl p-8 ${settings.highContrast ? 'contrast-125' : ''}`}
+              style={{
+                backgroundColor: settings.backgroundColor === 'blue' ? '#E3F2FD' : 
+                                settings.backgroundColor === 'yellow' ? '#FFF9C4' : 
+                                settings.backgroundColor === 'pink' ? '#FCE4EC' : 'white'
+              }}
+            >
+              <p
+                className={`text-gray-800 mb-4 ${
+                  settings.fontSize === 'large' ? 'text-xl' : settings.fontSize === 'xlarge' ? 'text-2xl' : 'text-base'
+                }`}
+              >
+                Así se verá el texto en el juego. ¡Prueba diferentes opciones!
+              </p>
+              <div className="flex gap-4 flex-wrap">
+                <div className="bg-blue-400 text-white px-6 py-3 rounded-xl">Palabra</div>
+                <div className="bg-green-400 text-white px-6 py-3 rounded-xl">Ejemplo</div>
+                <div className="bg-purple-400 text-white px-6 py-3 rounded-xl">Texto</div>
               </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Informational message */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-2xl p-6 text-center shadow-xl mb-6"
+          >
+            <p className="text-xl">
+              ✨ Todos los cambios se aplican inmediatamente ✨
+            </p>
+            <p className="text-base mt-2">
+              Puedes volver aquí en cualquier momento para cambiarlos
+            </p>
+          </motion.div>
 
           {/* Action button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex justify-center gap-6 mt-8 pb-8"
+            transition={{ delay: 0.7 }}
+            className="flex justify-center pb-8"
           >
             <Button
               onClick={() => {
