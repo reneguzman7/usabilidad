@@ -165,7 +165,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   <div className="text-xs opacity-80">(Frases cortas)</div>
                   {settings.difficulty === 'easy' && (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
-                      <Check className="w-5 h-5 mx-auto" />
+                      <Check className="w-7 h-7 mx-auto" />
                     </motion.div>
                   )}
                 </motion.button>
@@ -188,7 +188,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   <div className="text-xs opacity-80">(Frases largas)</div>
                   {settings.difficulty === 'normal' && (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
-                      <Check className="w-5 h-5 mx-auto" />
+                      <Check className="w-7 h-7 mx-auto" />
                     </motion.div>
                   )}
                 </motion.button>
@@ -235,7 +235,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                     <div className="text-sm">{size.label}</div>
                     {settings.fontSize === size.value && (
                       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
-                        <Check className="w-4 h-4 mx-auto" />
+                        <Check className="w-6 h-6 mx-auto" />
                       </motion.div>
                     )}
                   </motion.button>
@@ -284,7 +284,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   <div className="text-base">Colores Normales</div>
                   {!settings.highContrast && (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
-                      <Check className="w-5 h-5 mx-auto" />
+                      <Check className="w-7 h-7 mx-auto" />
                     </motion.div>
                   )}
                 </motion.button>
@@ -306,7 +306,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                   <div className="text-base">Alto Contraste</div>
                   {settings.highContrast && (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mt-2">
-                      <Check className="w-5 h-5 mx-auto" />
+                      <Check className="w-7 h-7 mx-auto" />
                     </motion.div>
                   )}
                 </motion.button>
@@ -353,7 +353,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
                     <div className="text-sm mb-1">{bg.label}</div>
                     {settings.backgroundColor === bg.value && (
                       <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                        <Check className="w-4 h-4 mx-auto text-pink-600" />
+                        <Check className="w-6 h-6 mx-auto text-pink-600" />
                       </motion.div>
                     )}
                   </motion.button>
@@ -422,7 +422,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
               }}
               className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-16 py-8 text-3xl rounded-3xl shadow-xl border-4 border-white"
             >
-              <Check className="w-10 h-10 mr-4" />
+              <Check className="w-12 h-12 mr-4" />
               ¡Listo!
             </Button>
           </motion.div>
