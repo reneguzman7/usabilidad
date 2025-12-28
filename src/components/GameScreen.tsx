@@ -102,10 +102,12 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
         
         if (e.key === 'ArrowUp') {
           setFocusArea('selected');
-          setFocusedIndex(Math.min(focusedIndex, selectedWords.length - 1));
+          // Ensure index is never negative
+          setFocusedIndex(Math.max(0, Math.min(focusedIndex, selectedWords.length - 1)));
         } else if (e.key === 'ArrowDown') {
           setFocusArea('available');
-          setFocusedIndex(Math.min(focusedIndex, shuffledWords.length - 1));
+          // Ensure index is never negative
+          setFocusedIndex(Math.max(0, Math.min(focusedIndex, shuffledWords.length - 1)));
         } else if (e.key === 'ArrowLeft') {
           if (focusArea === 'available') {
             setFocusedIndex(Math.max(0, focusedIndex - 1));
@@ -113,9 +115,9 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
             setFocusedIndex(Math.max(0, focusedIndex - 1));
           }
         } else if (e.key === 'ArrowRight') {
-          if (focusArea === 'available') {
+          if (focusArea === 'available' && shuffledWords.length > 0) {
             setFocusedIndex(Math.min(shuffledWords.length - 1, focusedIndex + 1));
-          } else {
+          } else if (focusArea === 'selected' && selectedWords.length > 0) {
             setFocusedIndex(Math.min(selectedWords.length - 1, focusedIndex + 1));
           }
         }
