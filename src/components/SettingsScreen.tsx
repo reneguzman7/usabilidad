@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { Home, Type, Contrast, Palette, Check, Target, BookOpen } from 'lucide-react';
-import { Mascot } from './Mascot';
 import { Button } from './ui/button';
 import type { Screen } from '../App';
 
@@ -36,7 +35,7 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
             onClick={() => navigateTo('home')}
-            className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 py-6 rounded-2xl shadow-lg border-4 border-white"
+            className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white w-16 h-16 rounded-2xl shadow-lg border-4 border-white"
           >
             <Home className="w-8 h-8" />
           </Button>
@@ -52,19 +51,6 @@ export function SettingsScreen({ navigateTo, settings, setSettings }: SettingsSc
       {/* Main content */}
       <div className="px-16 py-12">
         <div className="max-w-5xl mx-auto space-y-10">
-          {/* Mascot helper */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="flex justify-center"
-          >
-            <Mascot
-              mood="happy"
-              size="medium"
-              message="¡Ajusta todo para que sea más cómodo para ti!"
-            />
-          </motion.div>
-
           {/* Difficulty setting - NEW */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}

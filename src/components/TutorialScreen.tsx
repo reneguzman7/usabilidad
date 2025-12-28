@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Home, ChevronLeft, ChevronRight, ArrowDown, MousePointer, Check } from 'lucide-react';
-import { Mascot } from './Mascot';
 import { Button } from './ui/button';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
 import type { Screen } from '../App';
 
 interface TutorialScreenProps {
@@ -300,22 +300,12 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Mascot */}
-        <motion.div
-          key={currentStep}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <Mascot mood="happy" size="medium" message={step.mascotMessage} />
-        </motion.div>
-
         {/* Navigation buttons */}
         <div className="flex gap-6">
           <Button
             onClick={handlePrevious}
             disabled={currentStep === 0}
-            className="bg-gray-400 hover:bg-gray-500 text-white px-10 py-6 text-2xl rounded-2xl shadow-xl disabled:opacity-30"
+            className="bg-gray-400 hover:bg-gray-500 text-white w-48 h-16 text-2xl rounded-2xl shadow-xl disabled:opacity-30"
           >
             <ChevronLeft className="w-8 h-8 mr-3" />
             Anterior
@@ -324,7 +314,7 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
           {currentStep < tutorialSteps.length - 1 ? (
             <Button
               onClick={handleNext}
-              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-10 py-6 text-2xl rounded-2xl shadow-xl"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white w-48 h-16 text-2xl rounded-2xl shadow-xl"
             >
               Siguiente
               <ChevronRight className="w-8 h-8 ml-3" />
@@ -332,7 +322,7 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
           ) : (
             <Button
               onClick={handleFinish}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-12 py-6 text-3xl rounded-2xl shadow-xl"
+              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white w-80 h-20 text-3xl rounded-2xl shadow-xl"
             >
               ¡Empezar a Jugar!
               <Check className="w-10 h-10 ml-4" />

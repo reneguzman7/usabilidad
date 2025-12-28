@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { Home, Star, Trophy, Award, Sparkles, Crown, Heart, Gift } from 'lucide-react';
-import { Mascot } from './Mascot';
 import { Button } from './ui/button';
 import type { Screen, GameState } from '../App';
 
@@ -30,7 +29,7 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
             onClick={() => navigateTo('home')}
-            className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-6 rounded-2xl shadow-lg"
+            className="bg-gray-500 hover:bg-gray-600 text-white w-16 h-16 rounded-2xl shadow-lg"
           >
             <Home className="w-8 h-8" />
           </Button>
@@ -46,17 +45,15 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
       {/* Main content */}
       <div className="px-16 py-12">
         <div className="max-w-7xl mx-auto space-y-12">
-          {/* Welcome message with mascot */}
+          {/* Welcome message */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             className="flex justify-center"
           >
-            <Mascot
-              mood="celebrating"
-              size="large"
-              message={`¡Eres increíble! Has ganado ${gameState.points} puntos!`}
-            />
+            <div className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-12 py-6 rounded-3xl shadow-xl border-4 border-white">
+              <p className="text-4xl text-center">¡Eres increíble! Has ganado {gameState.points} puntos! 🎉</p>
+            </div>
           </motion.div>
 
           {/* Main rewards - Trophies first (jerarquizado) */}

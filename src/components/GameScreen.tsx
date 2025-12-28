@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Home, RotateCcw, Check, ChevronRight, Star, Sparkles, HelpCircle, Lightbulb, X } from 'lucide-react';
-import { Mascot } from './Mascot';
+import { Home, RotateCcw, Check, ChevronRight, Star, Sparkles, HelpCircle, Lightbulb } from 'lucide-react';
 import { Button } from './ui/button';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
 import type { Screen, GameState } from '../App';
 
 interface GameScreenProps {
@@ -383,15 +383,6 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
             </Button>
           </div>
 
-          {/* Mascot with feedback */}
-          <div className="flex justify-center">
-            <Mascot
-              mood={feedback === 'correct' ? 'celebrating' : feedback === 'incorrect' ? 'thinking' : 'happy'}
-              size="medium"
-              message={mascotMessage}
-            />
-          </div>
-
           {/* Keyboard hints (subtle indicator) */}
           <div className="flex justify-center">
             <div className="bg-white/80 px-6 py-3 rounded-2xl shadow-lg border-2 border-indigo-300 text-center">
@@ -471,10 +462,7 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
                       🎉
                     </motion.div>
                     <h2 className="text-5xl text-green-600 mb-6">¡Muy bien!</h2>
-                    <p className="text-3xl text-purple-600 mb-4">¡Frase completada!</p>
-                    <div className="my-6">
-                      <Mascot mood="celebrating" size="large" message="¡Eres increíble!" />
-                    </div>
+                    <p className="text-3xl text-purple-600 mb-8">¡Frase completada!</p>
                     <p className="text-2xl text-orange-600 mb-8">+100 puntos 🎯</p>
                     <Button
                       onClick={handleNext}
@@ -488,10 +476,7 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
                   <>
                     <div className="text-8xl mb-6">🤔</div>
                     <h2 className="text-5xl text-yellow-600 mb-6">Casi lo logras</h2>
-                    <p className="text-3xl text-gray-700 mb-4">Revisa el orden de las palabras</p>
-                    <div className="my-6">
-                      <Mascot mood="thinking" size="large" message="¡Tú puedes! Inténtalo otra vez 💪" />
-                    </div>
+                    <p className="text-3xl text-gray-700 mb-8">Revisa el orden de las palabras</p>
                     <Button
                       onClick={() => setShowFeedbackModal(false)}
                       className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-16 py-8 text-3xl rounded-3xl shadow-xl border-4 border-white"

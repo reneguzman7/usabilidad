@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Play, Gift, Settings, HelpCircle, Star, Trophy } from 'lucide-react';
-import { Mascot } from './Mascot';
 import { Button } from './ui/button';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
 import type { Screen } from '../App';
 import type { GameState } from '../App';
 
@@ -11,6 +11,8 @@ interface HomeScreenProps {
 }
 
 export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
+  const { speak } = useTextToSpeech();
+
   return (
     <div className="w-full h-full bg-gradient-to-br from-blue-300 via-purple-300 to-pink-300 relative overflow-hidden">
       {/* Animated balloons background */}
@@ -85,15 +87,6 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           <p className="text-3xl text-center">¡Bienvenido! ¡Vamos a jugar y aprender juntos! 🌟</p>
         </motion.div>
 
-        {/* Mascot */}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.8, type: 'spring' }}
-        >
-          <Mascot mood="excited" size="large" />
-        </motion.div>
-
         {/* Main play button */}
         <motion.div
           initial={{ scale: 0 }}
@@ -103,7 +96,10 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           whileTap={{ scale: 0.95 }}
         >
           <Button
-            onClick={() => navigateTo('game')}
+            onClick={() => {
+              navigateTo('game');
+              speak('¡Jugar!');
+            }}
             className="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white px-24 py-12 text-5xl rounded-full shadow-2xl border-8 border-white transform transition-all"
           >
             <Play className="w-16 h-16 mr-6 fill-white" />
@@ -158,7 +154,10 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           className="flex gap-6 mt-4"
         >
           <Button
-            onClick={() => navigateTo('rewards')}
+            onClick={() => {
+              navigateTo('rewards');
+              speak('Mis Premios');
+            }}
             className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <Gift className="w-10 h-10 mr-4" />
@@ -166,7 +165,10 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           </Button>
 
           <Button
-            onClick={() => navigateTo('tutorial')}
+            onClick={() => {
+              navigateTo('tutorial');
+              speak('Cómo jugar');
+            }}
             className="bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <HelpCircle className="w-10 h-10 mr-4" />
@@ -174,7 +176,10 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           </Button>
 
           <Button
-            onClick={() => navigateTo('settings')}
+            onClick={() => {
+              navigateTo('settings');
+              speak('Ajustes');
+            }}
             className="bg-gradient-to-r from-purple-400 to-indigo-500 hover:from-purple-500 hover:to-indigo-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <Settings className="w-10 h-10 mr-4" />
