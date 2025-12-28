@@ -100,7 +100,7 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
               navigateTo('game');
               speak('¡Jugar!');
             }}
-            className="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white px-24 py-12 text-5xl rounded-full shadow-2xl border-8 border-white transform transition-all"
+            className="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white px-16 py-8 text-5xl rounded-full shadow-2xl border-8 border-white transform transition-all"
           >
             <Play className="w-16 h-16 mr-6 fill-white" />
             ¡Jugar!
@@ -158,7 +158,7 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
               navigateTo('rewards');
               speak('Mis Premios');
             }}
-            className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
+            className="bg-gradient-to-r from-pink-400 to-rose-500 hover:from-pink-500 hover:to-rose-600 text-white px-10 py-6 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <Gift className="w-10 h-10 mr-4" />
             Mis Premios
@@ -169,7 +169,7 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
               navigateTo('tutorial');
               speak('Cómo jugar');
             }}
-            className="bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
+            className="bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white px-10 py-6 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <HelpCircle className="w-10 h-10 mr-4" />
             Cómo jugar
@@ -180,7 +180,7 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
               navigateTo('settings');
               speak('Ajustes');
             }}
-            className="bg-gradient-to-r from-purple-400 to-indigo-500 hover:from-purple-500 hover:to-indigo-600 text-white px-10 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
+            className="bg-gradient-to-r from-purple-400 to-indigo-500 hover:from-purple-500 hover:to-indigo-600 text-white px-10 py-6 text-2xl rounded-3xl shadow-xl border-4 border-white"
           >
             <Settings className="w-10 h-10 mr-4" />
             Ajustes

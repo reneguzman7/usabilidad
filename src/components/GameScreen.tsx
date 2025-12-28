@@ -259,7 +259,7 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
           {/* Home button */}
           <Button
             onClick={() => navigateTo('home')}
-            className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 py-6 rounded-2xl shadow-lg border-4 border-white"
+            className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 py-3 rounded-2xl shadow-lg border-4 border-white"
           >
             <Home className="w-8 h-8" />
           </Button>
@@ -365,7 +365,7 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
             {/* Help button */}
             <Button
               onClick={() => navigateTo('tutorial')}
-              className="bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white px-8 py-6 text-xl rounded-3xl shadow-xl border-4 border-white"
+              className="bg-gradient-to-r from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white px-10 py-6 text-xl rounded-3xl shadow-xl border-4 border-white"
             >
               <HelpCircle className="w-8 h-8" />
             </Button>
@@ -374,14 +374,14 @@ export function GameScreen({ navigateTo, gameState, updateGameState }: GameScree
             <Button
               onClick={handleHint}
               disabled={selectedWords.length >= currentSentence.words.length}
-              className="bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white px-8 py-6 text-xl rounded-3xl shadow-xl border-4 border-white disabled:opacity-50"
+              className="bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white px-10 py-6 text-xl rounded-3xl shadow-xl border-4 border-white disabled:opacity-50"
             >
               <Lightbulb className="w-8 h-8" />
             </Button>
 
             <Button
               onClick={handleReset}
-              className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white px-12 py-8 text-2xl rounded-3xl shadow-xl border-4 border-white"
+              className="bg-gradient-to-r from-orange-400 to-red-400 hover:from-orange-500 hover:to-red-500 text-white px-10 py-6 text-2xl rounded-3xl shadow-xl border-4 border-white"
             >
               <RotateCcw className="w-8 h-8 mr-4" />
               Reiniciar

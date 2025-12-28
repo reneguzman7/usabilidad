@@ -149,7 +149,7 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
               navigateTo('home');
               speak('Volver a inicio');
             }}
-            className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-6 rounded-2xl shadow-lg"
+            className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-2xl shadow-lg"
           >
             <Home className="w-8 h-8" />
           </Button>
