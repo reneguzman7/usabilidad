@@ -1,51 +1,60 @@
-import { motion } from 'motion/react';
-import { Smile, Star, Trophy } from 'lucide-react';
+import { motion } from "motion/react";
+import { Smile, Star, Trophy } from "lucide-react";
 
 interface MascotProps {
-  mood?: 'happy' | 'excited' | 'celebrating' | 'thinking';
-  size?: 'small' | 'medium' | 'large';
+  mood?: "happy" | "excited" | "celebrating" | "thinking";
+  size?: "small" | "medium" | "large";
   message?: string;
 }
 
-export function Mascot({ mood = 'happy', size = 'medium', message }: MascotProps) {
+export function Mascot({
+  mood = "happy",
+  size = "medium",
+  message,
+}: MascotProps) {
   const sizeClasses = {
-    small: 'w-16 h-16',
-    medium: 'w-24 h-24',
-    large: 'w-40 h-40'
+    small: "w-16 h-16",
+    medium: "w-24 h-24",
+    large: "w-40 h-40",
   };
 
   const getAnimation = () => {
     switch (mood) {
-      case 'excited':
+      case "excited":
         return {
           scale: [1, 1.1, 1],
           rotate: [-5, 5, -5, 0],
-          transition: { duration: 0.5, repeat: Infinity, repeatDelay: 1 }
+          transition: { duration: 0.5, repeat: Infinity, repeatDelay: 1 },
         };
-      case 'celebrating':
+      case "celebrating":
         return {
           y: [0, -20, 0],
           rotate: [0, 360],
-          transition: { duration: 1, repeat: Infinity, repeatDelay: 0.5 }
+          transition: { duration: 1, repeat: Infinity, repeatDelay: 0.5 },
         };
-      case 'thinking':
+      case "thinking":
         return {
           rotate: [-10, 10, -10],
-          transition: { duration: 2, repeat: Infinity }
+          transition: { duration: 2, repeat: Infinity },
         };
       default:
         return {
           scale: [1, 1.05, 1],
-          transition: { duration: 2, repeat: Infinity }
+          transition: { duration: 2, repeat: Infinity },
         };
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div
+      className="flex flex-col items-center gap-4"
+      role="img"
+      aria-label={message || `Mascota con ánimo ${mood}`}
+    >
       <motion.div
         animate={getAnimation()}
         className={`${sizeClasses[size]} bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-500 rounded-full flex items-center justify-center shadow-2xl relative`}
+        aria-hidden="true"
       >
         {/* Eyes */}
         <div className="absolute top-1/4 left-1/3 transform -translate-x-1/2">
@@ -65,7 +74,7 @@ export function Mascot({ mood = 'happy', size = 'medium', message }: MascotProps
         </div>
 
         {/* Celebration effects */}
-        {mood === 'celebrating' && (
+        {mood === "celebrating" && (
           <>
             <motion.div
               animate={{ rotate: 360, scale: [1, 1.5, 0] }}
@@ -84,7 +93,7 @@ export function Mascot({ mood = 'happy', size = 'medium', message }: MascotProps
           </>
         )}
 
-        {mood === 'excited' && (
+        {mood === "excited" && (
           <motion.div
             animate={{ y: [-5, 5], opacity: [0, 1, 0] }}
             transition={{ duration: 1, repeat: Infinity }}

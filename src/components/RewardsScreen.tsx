@@ -1,9 +1,18 @@
-import { motion } from 'motion/react';
-import { Home, Star, Trophy, Award, Sparkles, Crown, Heart, Gift } from 'lucide-react';
-import { Button } from './ui/button';
-import { useTextToSpeech } from '../hooks/useTextToSpeech';
-import { useEffect } from 'react';
-import type { Screen, GameState } from '../App';
+import { motion } from "motion/react";
+import {
+  Home,
+  Star,
+  Trophy,
+  Award,
+  Sparkles,
+  Crown,
+  Heart,
+  Gift,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import { useTextToSpeech } from "../hooks/useTextToSpeech";
+import { useEffect } from "react";
+import type { Screen, GameState } from "../App";
 
 interface RewardsScreenProps {
   navigateTo: (screen: Screen) => void;
@@ -18,40 +27,86 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
 
   useEffect(() => {
     // Announce rewards summary when entering screen
-    speak(`Mis Premios. Tienes ${gameState.points} puntos, ${gameState.stars} estrellas, ${gameState.trophies} trofeos, y ${totalStickers} calcomanías.`);
+    speak(
+      `Mis Premios. Tienes ${gameState.points} puntos, ${gameState.stars} estrellas, ${gameState.trophies} trofeos, y ${totalStickers} calcomanías.`,
+    );
   }, []);
 
   const rewardTypes = [
-    { icon: Star, color: 'from-yellow-400 to-orange-400', label: 'Estrellas', count: gameState.stars },
-    { icon: Trophy, color: 'from-orange-400 to-red-400', label: 'Trofeos', count: gameState.trophies },
-    { icon: Award, color: 'from-blue-400 to-purple-400', label: 'Insignias', count: badges },
-    { icon: Crown, color: 'from-purple-400 to-pink-400', label: 'Coronas', count: Math.floor(gameState.stars / 5) },
+    {
+      icon: Star,
+      color: "from-yellow-400 to-orange-400",
+      label: "Estrellas",
+      count: gameState.stars,
+    },
+    {
+      icon: Trophy,
+      color: "from-orange-400 to-red-400",
+      label: "Trofeos",
+      count: gameState.trophies,
+    },
+    {
+      icon: Award,
+      color: "from-blue-400 to-purple-400",
+      label: "Insignias",
+      count: badges,
+    },
+    {
+      icon: Crown,
+      color: "from-purple-400 to-pink-400",
+      label: "Coronas",
+      count: Math.floor(gameState.stars / 5),
+    },
   ];
 
-  const stickers = ['🎨', '🦁', '🏖️', '⚽', '🎵', '🌈', '🚀', '🦋', '🌟', '🎪', '🐬', '🎭'];
+  const stickers = [
+    "🎨",
+    "🦁",
+    "🏖️",
+    "⚽",
+    "🎵",
+    "🌈",
+    "🚀",
+    "🦋",
+    "🌟",
+    "🎪",
+    "🐬",
+    "🎭",
+  ];
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 relative overflow-auto">
+    <main
+      className="w-full h-full bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 relative overflow-auto"
+      role="main"
+      aria-label="Pantalla de premios"
+    >
       {/* Header */}
-      <div className="sticky top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6">
+      <header
+        className="sticky top-0 left-0 right-0 bg-white/95 shadow-xl z-20 px-8 py-6"
+        role="banner"
+      >
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <Button
             onClick={() => {
-              navigateTo('home');
-              speak('Volver a inicio');
+              navigateTo("home");
+              speak("Volver a inicio");
             }}
             className="bg-gray-500 hover:bg-gray-600 text-white w-16 h-16 rounded-2xl shadow-lg"
+            aria-label="Volver al inicio"
+            title="Volver al inicio (Alt+I)"
           >
-            <Home className="w-8 h-8" />
+            <Home className="w-8 h-8" aria-hidden="true" />
           </Button>
-
           <h1 className="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-            🎁 Mis Premios
+            <span role="img" aria-label="Emoji de regalo">
+              🎁
+            </span>{" "}
+            Mis Premios
           </h1>
-
-          <div className="w-24" /> {/* Spacer for centering */}
+          <div className="w-24" aria-hidden="true" />{" "}
+          {/* Spacer for centering */}
         </div>
-      </div>
+      </header>
 
       {/* Main content */}
       <div className="px-16 py-12">
@@ -63,7 +118,9 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
             className="flex justify-center"
           >
             <div className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-12 py-6 rounded-3xl shadow-xl border-4 border-white">
-              <p className="text-4xl text-center">¡Eres increíble! Has ganado {gameState.points} puntos! 🎉</p>
+              <p className="text-4xl text-center">
+                ¡Eres increíble! Has ganado {gameState.points} puntos! 🎉
+              </p>
             </div>
           </motion.div>
 
@@ -86,9 +143,11 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                   <div className="bg-white rounded-full p-6 shadow-xl">
                     <reward.icon className="w-16 h-16 text-purple-600" />
                   </div>
-                  <h3 className="text-2xl text-white text-center">{reward.label}</h3>
+                  <h3 className="text-2xl text-white text-center">
+                    {reward.label}
+                  </h3>
                   <div className="text-5xl text-white">{reward.count}</div>
-                  
+
                   {/* Sparkle animation when count > 0 */}
                   {reward.count > 0 && (
                     <motion.div
@@ -114,7 +173,9 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
               <h2 className="text-4xl text-pink-700">Álbum de Calcomanías</h2>
               <div className="flex items-center gap-3 bg-pink-100 px-6 py-3 rounded-2xl">
                 <Heart className="w-8 h-8 text-pink-500 fill-pink-500" />
-                <span className="text-2xl text-pink-700">{totalStickers} / {stickers.length}</span>
+                <span className="text-2xl text-pink-700">
+                  {totalStickers} / {stickers.length}
+                </span>
               </div>
             </div>
             <div className="grid grid-cols-6 gap-6">
@@ -129,8 +190,8 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                     whileHover={isUnlocked ? { scale: 1.2, rotate: 10 } : {}}
                     className={`aspect-square rounded-2xl flex items-center justify-center text-6xl shadow-xl border-4 ${
                       isUnlocked
-                        ? 'bg-gradient-to-br from-yellow-200 to-pink-200 border-yellow-400'
-                        : 'bg-gray-200 border-gray-300 grayscale opacity-50'
+                        ? "bg-gradient-to-br from-yellow-200 to-pink-200 border-yellow-400"
+                        : "bg-gray-200 border-gray-300 grayscale opacity-50"
                     }`}
                   >
                     {sticker}
@@ -157,10 +218,14 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
             className="bg-white rounded-3xl p-10 shadow-2xl border-4 border-purple-400"
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-4xl text-purple-700">Progreso de Colección</h2>
+              <h2 className="text-4xl text-purple-700">
+                Progreso de Colección
+              </h2>
               <div className="flex items-center gap-4">
                 <Gift className="w-12 h-12 text-pink-500" />
-                <span className="text-3xl text-purple-700">{Math.round(collectionProgress)}%</span>
+                <span className="text-3xl text-purple-700">
+                  {Math.round(collectionProgress)}%
+                </span>
               </div>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
@@ -171,21 +236,19 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                 className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 h-full rounded-full relative overflow-hidden"
               >
                 <motion.div
-                  animate={{ x: ['0%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  animate={{ x: ["0%", "100%"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  style={{ width: '50%' }}
+                  style={{ width: "50%" }}
                 />
               </motion.div>
             </div>
             <p className="text-xl text-gray-600 mt-4 text-center">
               {collectionProgress < 100
                 ? `¡Sigue jugando para desbloquear más recompensas! 🎯`
-                : '¡Has completado toda la colección! ¡Eres un campeón! 👑'}
+                : "¡Has completado toda la colección! ¡Eres un campeón! 👑"}
             </p>
           </motion.div>
-
-
 
           {/* Motivational messages */}
           <motion.div
@@ -207,11 +270,14 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
 
           {/* Fireworks effect */}
           {gameState.points > 0 && (
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
+            <div
+              className="fixed inset-0 pointer-events-none overflow-hidden"
+              aria-hidden="true"
+            >
               {[...Array(10)].map((_, i) => (
                 <motion.div
                   key={i}
-                  initial={{ scale: 0, x: '50vw', y: '50vh', opacity: 1 }}
+                  initial={{ scale: 0, x: "50vw", y: "50vh", opacity: 1 }}
                   animate={{
                     scale: [0, 2, 3],
                     x: `${50 + Math.random() * 40 - 20}vw`,
@@ -233,6 +299,6 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
