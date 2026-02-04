@@ -53,6 +53,11 @@
       target: 'esnext',
       outDir: 'build',
     },
+    preview: {
+      host: true,
+      port: parseInt(process.env.PORT || '10000'),
+      strictPort: false,
+    },
     server: {
       port: 3000,
       open: true,
