@@ -227,7 +227,7 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
               </h2>
               <div className="flex items-center gap-4">
                 <Gift className="w-12 h-12 text-pink-500" aria-hidden="true" />
-                <span className="text-3xl text-purple-700" aria-label={`${Math.round(collectionProgress)} por ciento completado`}>
+                <span className="text-3xl text-purple-700" aria-label={`${Math.round(collectionProgress)} porciento completado`}>
                   {Math.round(collectionProgress)}%
                 </span>
               </div>

@@ -380,7 +380,7 @@ export function GameScreen({
                 </span>
                 <div 
                   className="flex gap-1" 
-                  role="img" 
+                  role="status" 
                   aria-label={`${gameState.stars} de 5 estrellas obtenidas`}
                 >
                   {[...Array(5)].map((_, i) => (
