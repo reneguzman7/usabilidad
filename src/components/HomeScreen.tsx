@@ -134,18 +134,20 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
           className="bg-white/95 px-8 py-4 rounded-3xl shadow-xl border-3 border-blue-400"
+          role="status"
+          aria-label={`Nivel actual: ${gameState.currentLevel}. Premios ganados: ${gameState.stars + gameState.trophies}`}
         >
           <div className="flex flex-col gap-2 items-center">
             <p className="text-[24px] text-blue-700 font-semibold">
-              <span className="text-[26px]">📊</span> Nivel actual:{" "}
+              <span className="text-[26px]" role="img" aria-label="Gráfico de barras">📊</span> Nivel actual:{" "}
               <span className="text-purple-700">{gameState.currentLevel}</span>
             </p>
             <p className="text-[24px] text-pink-700 font-semibold">
-              <span className="text-[26px]">🎁</span> Premios ganados:{" "}
+              <span className="text-[26px]" role="img" aria-label="Regalo">🎁</span> Premios ganados:{" "}
               <span className="text-orange-700">
                 {gameState.stars + gameState.trophies}
               </span>{" "}
-              <span className="text-[26px]">⭐</span>
+              <span className="text-[26px]" role="img" aria-label="Estrella">⭐</span>
             </p>
           </div>
         </motion.div>
@@ -156,20 +158,22 @@ export function HomeScreen({ navigateTo, gameState }: HomeScreenProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="flex gap-6 bg-white/90 px-8 py-4 rounded-3xl shadow-xl"
+            role="status"
+            aria-label={`Estadísticas: ${gameState.stars} estrellas, ${gameState.trophies} trofeos, ${gameState.points} puntos`}
           >
             <div className="flex items-center gap-3">
-              <Star className="w-10 h-10 text-yellow-500 fill-yellow-500" />
-              <span className="text-[28px] font-bold">{gameState.stars}</span>
+              <Star className="w-10 h-10 text-yellow-500 fill-yellow-500" aria-hidden="true" />
+              <span className="text-[28px] font-bold" aria-label={`${gameState.stars} estrellas`}>{gameState.stars}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Trophy className="w-10 h-10 text-orange-500 fill-orange-500" />
-              <span className="text-[28px] font-bold">
+              <Trophy className="w-10 h-10 text-orange-500 fill-orange-500" aria-hidden="true" />
+              <span className="text-[28px] font-bold" aria-label={`${gameState.trophies} trofeos`}>
                 {gameState.trophies}
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[28px]">🎯</span>
-              <span className="text-[28px] font-bold">
+              <span className="text-[28px]" role="img" aria-label="Diana">🎯</span>
+              <span className="text-[28px] font-bold" aria-label={`${gameState.points} puntos`}>
                 {gameState.points} pts
               </span>
             </div>

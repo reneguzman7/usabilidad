@@ -129,6 +129,8 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="grid grid-cols-4 gap-8"
+            role="list"
+            aria-label="Premios obtenidos"
           >
             {rewardTypes.map((reward, index) => (
               <motion.div
@@ -138,10 +140,12 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 className={`bg-gradient-to-br ${reward.color} rounded-3xl p-8 shadow-2xl border-4 border-white`}
+                role="listitem"
+                aria-label={`${reward.label}: ${reward.count}`}
               >
                 <div className="flex flex-col items-center gap-4">
                   <div className="bg-white rounded-full p-6 shadow-xl">
-                    <reward.icon className="w-16 h-16 text-purple-600" />
+                    <reward.icon className="w-16 h-16 text-purple-600" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl text-white text-center">
                     {reward.label}
@@ -154,7 +158,7 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                       animate={{ rotate: 360, scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
-                      <Sparkles className="w-8 h-8 text-yellow-300 fill-yellow-300" />
+                      <Sparkles className="w-8 h-8 text-yellow-300 fill-yellow-300" aria-hidden="true" />
                     </motion.div>
                   )}
                 </div>
@@ -222,13 +226,20 @@ export function RewardsScreen({ navigateTo, gameState }: RewardsScreenProps) {
                 Progreso de Colección
               </h2>
               <div className="flex items-center gap-4">
-                <Gift className="w-12 h-12 text-pink-500" />
-                <span className="text-3xl text-purple-700">
+                <Gift className="w-12 h-12 text-pink-500" aria-hidden="true" />
+                <span className="text-3xl text-purple-700" aria-label={`${Math.round(collectionProgress)} por ciento completado`}>
                   {Math.round(collectionProgress)}%
                 </span>
               </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
+            <div 
+              className="w-full bg-gray-200 rounded-full h-8 overflow-hidden"
+              role="progressbar"
+              aria-valuenow={Math.round(collectionProgress)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`Progreso de colección: ${Math.round(collectionProgress)}%`}
+            >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${collectionProgress}%` }}
