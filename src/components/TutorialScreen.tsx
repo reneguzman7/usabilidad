@@ -348,8 +348,10 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
             onClick={handlePrevious}
             disabled={currentStep === 0}
             className="bg-gray-400 hover:bg-gray-500 text-white w-48 h-16 text-2xl rounded-2xl shadow-xl disabled:opacity-30"
+            aria-label="Ir al paso anterior del tutorial"
+            title="Paso anterior (Flecha izquierda)"
           >
-            <ChevronLeft className="w-8 h-8 mr-3" />
+            <ChevronLeft className="w-8 h-8 mr-3" aria-hidden="true" />
             Anterior
           </Button>
 
@@ -357,9 +359,11 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
             <Button
               onClick={handleNext}
               className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white w-48 h-16 text-2xl rounded-2xl shadow-xl"
+              aria-label="Ir al siguiente paso del tutorial"
+              title="Siguiente paso (Flecha derecha o Enter)"
             >
               Siguiente
-              <ChevronRight className="w-8 h-8 ml-3" />
+              <ChevronRight className="w-8 h-8 ml-3" aria-hidden="true" />
             </Button>
           ) : (
             <Button
@@ -368,9 +372,11 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
                 speak("¡Empezar a Jugar!");
               }}
               className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white w-80 h-20 text-3xl rounded-2xl shadow-xl"
+              aria-label="Finalizar tutorial y empezar a jugar"
+              title="Empezar a jugar (Enter)"
             >
               ¡Empezar a Jugar!
-              <Check className="w-10 h-10 ml-4" />
+              <Check className="w-10 h-10 ml-4" aria-hidden="true" />
             </Button>
           )}
         </div>
@@ -380,6 +386,7 @@ export function TutorialScreen({ navigateTo }: TutorialScreenProps) {
           onClick={() => navigateTo("home")}
           className="text-gray-600 hover:text-gray-800 underline bg-transparent hover:bg-transparent shadow-none"
           aria-label="Saltar tutorial y volver al inicio"
+          title="Saltar tutorial"
         >
           Saltar tutorial
         </Button>

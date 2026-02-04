@@ -35,6 +35,9 @@ function App() {
     difficulty: 'normal'
   });
 
+  // Estado para anuncios de lectores de pantalla
+  const [liveAnnouncement, setLiveAnnouncement] = useState('');
+
   const navigateTo = (screen: Screen) => {
     setCurrentScreen(screen);
   };
@@ -82,7 +85,7 @@ function App() {
       case 'home':
         return <HomeScreen navigateTo={navigateTo} gameState={gameState} />;
       case 'game':
-        return <GameScreen navigateTo={navigateTo} gameState={gameState} updateGameState={updateGameState} />;
+        return <GameScreen navigateTo={navigateTo} gameState={gameState} updateGameState={updateGameState} announceToScreenReader={setLiveAnnouncement} />;
       case 'rewards':
         return <RewardsScreen navigateTo={navigateTo} gameState={gameState} />;
       case 'tutorial':
@@ -107,6 +110,16 @@ function App() {
                         settings.backgroundColor === 'pink' ? '#FCE4EC' : undefined
       }}
     >
+      {/* Región ARIA Live para anuncios automáticos de lectores de pantalla */}
+      <div 
+        aria-live="polite" 
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        {liveAnnouncement}
+      </div>
+      
       {renderScreen()}
       <KeyboardHelp />
     </div>

@@ -19,6 +19,7 @@ interface GameScreenProps {
   navigateTo: (screen: Screen) => void;
   gameState: GameState;
   updateGameState: (state: Partial<GameState>) => void;
+  announceToScreenReader: (message: string) => void;
 }
 
 interface Sentence {
@@ -71,6 +72,7 @@ export function GameScreen({
   navigateTo,
   gameState,
   updateGameState,
+  announceToScreenReader,
 }: GameScreenProps) {
   const currentSentence =
     sentences[(gameState.currentLevel - 1) % sentences.length];
@@ -101,9 +103,9 @@ export function GameScreen({
     setFocusArea("available");
 
     // Announce level and theme
-    speak(
-      `Nivel ${gameState.currentLevel}. Tema: ${currentSentence.theme}. ¡Ordena las palabras!`,
-    );
+    const announcement = `Nivel ${gameState.currentLevel}. Tema: ${currentSentence.theme}. ¡Ordena las palabras!`;
+    speak(announcement);
+    announceToScreenReader(announcement);
   }, [gameState.currentLevel]);
 
   // Manejo de teclado
@@ -281,13 +283,17 @@ export function GameScreen({
         trophies: newTrophies,
       });
 
-      speak("¡Excelente! ¡Lo hiciste perfecto! Ganaste 100 puntos");
+      const successMessage = "¡Excelente! ¡Lo hiciste perfecto! Ganaste 100 puntos";
+      speak(successMessage);
+      announceToScreenReader(`Nivel ${gameState.currentLevel} completado. ${successMessage}`);
       setTimeout(() => setShowCelebration(false), 2000);
     } else {
       setFeedback("incorrect");
       setMascotMessage("¡Casi! Inténtalo de nuevo 💪");
       setShowFeedbackModal(true);
-      speak("¡Casi! Inténtalo de nuevo");
+      const errorMessage = "¡Casi! Inténtalo de nuevo";
+      speak(errorMessage);
+      announceToScreenReader(errorMessage);
     }
   };
 
@@ -310,8 +316,10 @@ export function GameScreen({
   };
 
   const handleNext = () => {
-    updateGameState({ currentLevel: gameState.currentLevel + 1 });
+    const nextLevel = gameState.currentLevel + 1;
+    updateGameState({ currentLevel: nextLevel });
     setShowFeedbackModal(false);
+    announceToScreenReader(`Cargando nivel ${nextLevel}...`);
   };
 
   const handleHint = () => {
@@ -367,17 +375,31 @@ export function GameScreen({
           >
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">Nivel {gameState.currentLevel}</span>
-                <div className="flex gap-1">
+                <span className="text-2xl" aria-label={`Nivel actual: ${gameState.currentLevel}`}>
+                  Nivel {gameState.currentLevel}
+                </span>
+                <div 
+                  className="flex gap-1" 
+                  role="status" 
+                  aria-label={`${gameState.stars} de 5 estrellas obtenidas`}
+                >
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
                       className={`w-8 h-8 ${i < gameState.stars ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}`}
+                      aria-hidden="true"
                     />
                   ))}
                 </div>
               </div>
-              <div className="w-80 bg-gray-200 rounded-full h-4 overflow-hidden">
+              <div 
+                className="w-80 bg-gray-200 rounded-full h-4 overflow-hidden"
+                role="progressbar"
+                aria-valuenow={Math.round(progress)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`Progreso del juego: ${Math.round(progress)}%`}
+              >
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
@@ -386,7 +408,11 @@ export function GameScreen({
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-8 py-4 rounded-2xl shadow-lg">
+            <div 
+              className="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-8 py-4 rounded-2xl shadow-lg"
+              role="status"
+              aria-label={`Puntos totales: ${gameState.points}. ${pointsToNextStar} puntos para tu próxima estrella`}
+            >
               <div className="text-3xl">
                 <span role="img" aria-label="diana">
                   🎯
